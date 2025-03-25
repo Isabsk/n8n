@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: n8n
+    runtime: node
+    plan: free
+    region: oregon
+    envVars:
+      - key: N8N_HOST
+        value: 0.0.0.0
+      - key: N8N_PORT
+        value: 5678
+      - key: N8N_PROTOCOL
+        value: http
+      - key: WEBHOOK_URL
+        value: https://your-render-app-url
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: true
+      - key: N8N_BASIC_AUTH_USER
+        value: your-username
+      - key: N8N_BASIC_AUTH_PASSWORD
+        value: your-password
+      - key: TZ
+        value: UTC
+      - key: EXECUTIONS_PROCESS
+        value: main
+    buildCommand: npm install --legacy-peer-deps
+    startCommand: npx n8n
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
