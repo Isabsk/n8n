@@ -5,6 +5,8 @@ services:
     plan: free
     region: oregon
     envVars:
+      - key: NODE_VERSION
+        value: 20.15.0                # ✅ Compatible Node.js version
       - key: N8N_HOST
         value: 0.0.0.0
       - key: N8N_PORT
@@ -14,17 +16,20 @@ services:
       - key: WEBHOOK_URL
         value: https://your-render-app-url
       - key: N8N_BASIC_AUTH_ACTIVE
-        value: true
+        value: 'true'
       - key: N8N_BASIC_AUTH_USER
         value: your-username
       - key: N8N_BASIC_AUTH_PASSWORD
         value: your-password
       - key: TZ
-        value: UTC
+        value: Asia/Kolkata            # ✅ Timezone for IST
       - key: EXECUTIONS_PROCESS
         value: main
-    buildCommand: npm install --legacy-peer-deps
-    startCommand: npx n8n
+    buildCommand: |
+      corepack enable                  # ✅ Enable Corepack
+      corepack prepare pnpm@10.2.1 --activate
+      pnpm install --frozen-lockfile   # ✅ Install dependencies with pnpm
+    startCommand: pnpm start
     disk:
       name: data
       mountPath: /data
