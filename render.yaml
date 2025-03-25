@@ -18,18 +18,14 @@ services:
       - key: N8N_BASIC_AUTH_ACTIVE
         value: 'true'
       - key: N8N_BASIC_AUTH_USER
-        value: your-username
+        value: admin
       - key: N8N_BASIC_AUTH_PASSWORD
-        value: your-password
+        value: password
       - key: TZ
         value: Asia/Kolkata            # ✅ Timezone for IST
       - key: EXECUTIONS_PROCESS
         value: main
-    buildCommand: |
-      corepack enable                  # ✅ Enable Corepack
-      corepack prepare pnpm@10.2.1 --activate
-      pnpm install --frozen-lockfile   # ✅ Install dependencies with pnpm
-    startCommand: pnpm start
+		dockerfilePath: ./Dockerfile
     disk:
       name: data
       mountPath: /data
